@@ -1,7 +1,13 @@
-from flask import Flask
+from flask import Flask, jsonify
 from Routes.auth.route import register, login, signOut, sendResetPassword, changePassword
+from middleware import middleware
 
 app = Flask(__name__)
+
+# middleware
+@app.before_request
+def auth_middleware():
+    return middleware()
 
 # auth route
 @app.route("/register", methods=["POST"])
@@ -24,7 +30,11 @@ def SendResetPassword():
 def ChangePassword():
     return changePassword()
 
-
+@app.route("/product", methods=["GET"])
+def Product():
+    return jsonify({
+        "message": "Product fetched successfully"
+    })
 
 # product route
 

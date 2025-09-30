@@ -58,10 +58,11 @@ def login():
             )
 
         # return the response after user created/registered successfully
+        jwt_encode = jwt.encode({"createdAt": str(datetime.now())}, os.environ.get("JWT_SECRET_KEY"), algorithm="HS256")
         userData = {
             "status": True,
             "message": "user logged in successfully :)",
-            # "data": response.__dict__ if response else None
+            "token": jwt_encode
         }
         return userData, 200
     except Exception as e:
