@@ -4,6 +4,9 @@ import jwt
 import os
 from dotenv import load_dotenv
 from datetime import datetime
+from models.auth.auth_model import User
+from pydantic import ValidationError
+import json
 
 load_dotenv()
 
@@ -16,6 +19,7 @@ def register():
         password = data["password"]
         if not email or not password:
             return jsonify({ "error": "all fields are required, make sure email or password setted !"})
+        user_validation = User.model_validate(data)
         response = supabase.auth.sign_up(
                 {
                     "email": str(email),
@@ -31,6 +35,9 @@ def register():
             "token": jwt_encode
         }
         return userData, 201
+    except ValidationError as e:
+      details = [{"loc": err["loc"], "msg": str(err.get("msg", "")), "type": err.get("type", "")} for err in e.errors()]
+      return jsonify({"error": "Validation failed", "details": details}), 400
     except Exception as e:
         print(e)
         return jsonify(
