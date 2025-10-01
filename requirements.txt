@@ -1,2 +1,9 @@
 flask
 supabase
+gunicorn
+flask-cors
+flask-limiter
+pydantic
+PyJWT
+python-dotenv
+requests

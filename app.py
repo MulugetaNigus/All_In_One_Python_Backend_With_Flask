@@ -4,9 +4,21 @@ from Routes.product.route import getProduct, addProduct, updateProduct, deletePr
 from middleware import middleware
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask_cors import CORS
 
 # init flask app
 app = Flask(__name__)
+
+# cors
+CORS(
+    app,
+    origins=[
+        "http://localhost:5173",
+        "http://localhost:3000",
+    ],
+    methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["Content-Type", "Authorization"],
+)
 
 # api versioning
 API_VERSION = "api/v1"
