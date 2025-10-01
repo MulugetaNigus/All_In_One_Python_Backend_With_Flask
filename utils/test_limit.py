@@ -16,7 +16,8 @@ for i in range(0, 5):
         "password": temp_password
   })
 
-  response = requests.request("POST", url,
-                                    headers=headers, 
-                                    data=payload)
+  response = requests.request("POST", 
+                              url,
+                              headers=headers, 
+                              data=payload)
   print(f"Response: {response.text} {i} times")

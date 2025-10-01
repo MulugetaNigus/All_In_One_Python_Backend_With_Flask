@@ -52,8 +52,6 @@ def Product():
 # product route
 
 
-
-
 # main entry
 if __name__ == "__main__":
     app.run(debug=True)
