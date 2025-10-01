@@ -13,7 +13,7 @@ def middleware():
         if request.path in public_routes:
             return None
         token = request.headers.get("Authorization").split(" ")[1]
-        print("token: ", token)
+        # print("token: ", token)
         if not token:
             return jsonify({"error": "token is required"}), 401
         jwt.decode(token, os.environ.get("JWT_SECRET_KEY"), algorithms=["HS256"])

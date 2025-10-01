@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from datetime import datetime
 from models.auth.auth_model import User
 from pydantic import ValidationError
-import json
 
 load_dotenv()
 
@@ -162,4 +161,3 @@ def changePassword():
                 "error": str(e)
             }
         ), 500
-# product route

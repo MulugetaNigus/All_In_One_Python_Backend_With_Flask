@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from Routes.auth.route import register, login, signOut, sendResetPassword, changePassword
+from Routes.product.route import getProduct, addProduct, updateProduct, deleteProduct, filterProduct
 from middleware import middleware
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -43,14 +44,32 @@ def SendResetPassword():
 def ChangePassword():
     return changePassword()
 
+
+# get all prouct route
 @app.route("/product", methods=["GET"])
 def Product():
-    return jsonify({
-        "message": "Product fetched successfully"
-    })
+    return getProduct()
 
-# product route
+# add product route
+@app.route("/product", methods=["POST"])
+@limiter.limit("15 per minute")
+def AddProduct():
+    return addProduct()
 
+# update product route
+@app.route("/update-product", methods=["PUT"])
+def UpdateProduct():
+    return updateProduct()
+
+# delete product route
+@app.route("/delete", methods=["DELETE"])
+def DeleteProduct():
+    return deleteProduct()
+
+# filter the product
+@app.route("/filter-product", methods=["POST"])
+def FilterProduct():
+    return filterProduct()
 
 # main entry
 if __name__ == "__main__":
