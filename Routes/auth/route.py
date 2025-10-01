@@ -3,7 +3,7 @@ from flask import request, jsonify
 import jwt
 import os
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime, timedelta
 from models.auth.auth_model import User
 from pydantic import ValidationError
 
@@ -27,7 +27,7 @@ def register():
             )
 
         # return the response after user created/registered successfully
-        jwt_encode = jwt.encode({"createdAt": str(datetime.now())}, os.environ.get("JWT_SECRET_KEY"), algorithm="HS256")
+        jwt_encode = jwt.encode({"createdAt": str(datetime.now()), "exp": datetime.now() + timedelta(hours=1)}, os.environ.get("JWT_SECRET_KEY"), algorithm="HS256")
         userData = {
             "status": True,
             "message": "user created successfully :)",
@@ -64,7 +64,7 @@ def login():
             )
 
         # return the response after user created/registered successfully
-        jwt_encode = jwt.encode({"createdAt": str(datetime.now())}, os.environ.get("JWT_SECRET_KEY"), algorithm="HS256")
+        jwt_encode = jwt.encode({"createdAt": str(datetime.now()), "exp": datetime.now() + timedelta(hours=1) },os.environ.get("JWT_SECRET_KEY"), algorithm="HS256")
         userData = {
             "status": True,
             "message": "user logged in successfully :)",

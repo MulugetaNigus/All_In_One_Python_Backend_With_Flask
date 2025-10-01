@@ -18,5 +18,7 @@ def middleware():
             return jsonify({"error": "token is required"}), 401
         jwt.decode(token, os.environ.get("JWT_SECRET_KEY"), algorithms=["HS256"])
         pass
+    except jwt.ExpiredSignatureError:
+        return jsonify({"error": "token expired"}), 401
     except:
         return jsonify({"status": False ,"error": "Unauthorized"}), 401

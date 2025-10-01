@@ -4,6 +4,7 @@ gunicorn
 flask-cors
 flask-limiter
 pydantic
+"pydantic[email]"
 PyJWT
 python-dotenv
 requests
